@@ -57,13 +57,13 @@ async function run() {
         const contentOld = Buffer.from(resultOld.data.content, 'base64').toString();
 
         //get current
-        var resultOld = await octokit.rest.repos.getContent({ owner: org, repo: repo, path: file.filename, ref: payload.pull_request.ref });
-        console.log("newFileResult: " + resultOld)
-        if (!resultOld) {
+        var resultNew = await octokit.rest.repos.getContent({ owner: org, repo: repo, path: file.filename, ref: payload.pull_request.ref });
+        console.log("newFileResult: " + resultNew)
+        if (!resultNew) {
           console.log("new result was empty")
           continue;
         }
-        const contentNew = Buffer.from(resultOld.data.content, 'base64').toString();
+        const contentNew = Buffer.from(resultNew.data.content, 'base64').toString();
 
         console.log("old", contentOld)
         console.log("new", contentNew)
