@@ -8497,7 +8497,7 @@ async function run() {
       });
 
       const files = thisPR.data
-      files.forEach(file => {
+      for (const file of files){
         console.log("found file", file.filename)
         if (file.status != "modified") return
         console.log("is modified", file.status)
@@ -8509,7 +8509,7 @@ async function run() {
 
 
         //get master
-        var resultOld = octokit.rest.repos.getContent({ owner: org, repo: repo, path: file.filename });
+        var resultOld = await octokit.rest.repos.getContent({ owner: org, repo: repo, path: file.filename });
         console.log("oldFileResult: " + resultOld)
         if (!resultOld) {
           console.log("old result was empty")
@@ -8518,7 +8518,7 @@ async function run() {
         const contentOld = Buffer.from(resultOld.data.content, 'base64').toString();
 
         //get current
-        var resultOld = octokit.rest.repos.getContent({ owner: org, repo: repo, path: file.filename, ref: payload.pull_request.ref });
+        var resultOld = await octokit.rest.repos.getContent({ owner: org, repo: repo, path: file.filename, ref: payload.pull_request.ref });
         console.log("newFileResult: " + resultOld)
         if (!resultOld) {
           console.log("new result was empty")
@@ -8531,7 +8531,7 @@ async function run() {
 
 
 
-      });
+      }
     }
 
   } catch (error) {
