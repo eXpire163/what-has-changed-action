@@ -5,6 +5,9 @@ inputs:
     description: 'number of milliseconds to wait'
     required: true
     default: '1000'
+  myToken:
+    required: true
+    description: 'your github token'
 outputs:
   time: # output will be available to future steps
     description: 'The current time after waiting'

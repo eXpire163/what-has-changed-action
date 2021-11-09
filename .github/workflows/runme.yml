@@ -1,4 +1,4 @@
-name: "CodeSearchTest"
+name: "CodeTest"
 on:
   workflow_dispatch:
   # schedule:
@@ -7,13 +7,7 @@ on:
 
 
 jobs:
-  # unit tests
-  # units:
-  #   runs-on: [self-hosted]
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - run: npm ci
-  #     - run: npm test
+
 
   # test action works running from the graph
   selftest:
