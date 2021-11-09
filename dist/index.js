@@ -8491,7 +8491,11 @@ async function run() {
         repo: payload.repository.name,
         pull_number: payload.number
       });
-      console.log("pr files", thisPR)
+
+      const files = thisPR.data
+      files.forEach(file => {
+        console.log("file", file )
+      });
     }
 
   } catch (error) {
