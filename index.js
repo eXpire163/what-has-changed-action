@@ -49,7 +49,7 @@ async function run() {
 
         //get master
         var resultOld = octokit.rest.repos.getContent({ owner: org, repo: repo, path: file.filename });
-        //context.log.debug("oldFileResult: " + resultOld)
+        console.log("oldFileResult: " + resultOld)
         if (!resultOld) {
           console.log("old result was empty")
           return;
@@ -58,7 +58,7 @@ async function run() {
 
         //get current
         var resultOld = octokit.rest.repos.getContent({ owner: org, repo: repo, path: file.filename, ref: payload.pull_request.ref });
-        //.log.debug("newFileResult: " + resultOld)
+        console.log("newFileResult: " + resultOld)
         if (!resultOld) {
           console.log("new result was empty")
           return;
