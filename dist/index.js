@@ -8497,7 +8497,7 @@ async function run() {
         console.log("found file", file.filename)
         if (file.status != "modified") return
         console.log("is modified", file.status)
-        if (!file.filename.endsWith(".yaml") || !file.filename.endsWith(".yml")) return;
+        if (!(file.filename.endsWith(".yaml") || !file.filename.endsWith(".yml"))) return;
         console.log("file is a yml/yaml")
         console.log("file", file)
 
