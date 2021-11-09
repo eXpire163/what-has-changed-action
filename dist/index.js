@@ -8480,10 +8480,10 @@ async function run() {
 
     if (context.eventName == "pull_request") {
 
-     console.log(context.owner)
+      console.log(context.repository.owner)
 
       const thisPR = await octokit.rest.pulls.listFiles({
-        owner: context.owner.name,
+        owner: context.repository.owner.name,
         repo: context.repository,
         pull_number: context.number
       });
