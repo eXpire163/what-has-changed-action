@@ -1,0 +1,8 @@
+my:
+  world: "moon"
+  intValue: 3
+  boolValue: false
+  annoying:
+    - arrays
+    - lists
+    - objects
