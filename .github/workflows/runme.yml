@@ -14,7 +14,6 @@ jobs:
     runs-on: ubuntu-latest #  [self-hosted]
     steps:
       - uses: actions/checkout@v2
-      - run: npm install
       - uses: ./
         with:
           myToken: ${{ secrets.GITHUB_TOKEN }}
