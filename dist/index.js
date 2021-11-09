@@ -8494,10 +8494,11 @@ async function run() {
 
       const files = thisPR.data
       files.forEach(file => {
-        console.log("found file", file);
-        if (file.status != "modified") return;
+        console.log("found file", file.filename)
+        if (file.status != "modified") return
+        console.log("is modified", file.status)
         if (!file.filename.endsWith(".yaml") || !file.filename.endsWith(".yml")) return;
-
+        console.log("file is a yml/yaml")
         console.log("file", file)
 
 
