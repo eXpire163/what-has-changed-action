@@ -1,0 +1,25 @@
+name: "CodeSearchTest"
+on:
+  workflow_dispatch:
+  # schedule:
+  #   - cron: "42 0 * * * *"
+  pull_request:
+
+
+jobs:
+  # unit tests
+  # units:
+  #   runs-on: [self-hosted]
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - run: npm ci
+  #     - run: npm test
+
+  # test action works running from the graph
+  selftest:
+    runs-on: [self-hosted]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+        with:
+          myToken: ${{ secrets.GITHUB_TOKEN }}
