@@ -8484,7 +8484,7 @@ async function run() {
 
       console.log("this is a pr", payload.repository.owner.login,
         payload.repository.name,
-         payload.number)
+        payload.number)
 
       const thisPR = await octokit.rest.pulls.listFiles({
         owner: payload.repository.owner.login,
@@ -8495,10 +8495,34 @@ async function run() {
       const files = thisPR.data
       files.forEach(file => {
 
-        if(file.status != "modified") return;
-        if(!file.filename.endsWith(".yaml") || !file.filename.endsWith(".yml")) return;
+        if (file.status != "modified") return;
+        if (!file.filename.endsWith(".yaml") || !file.filename.endsWith(".yml")) return;
 
-        console.log("file", file )
+        console.log("file", file)
+
+
+        //get master
+        var resultOld = octokit.rest.repos.getContent({ owner: org, repo: repo, path: file.filename });
+        context.log.debug("oldFileResult: " + resultOld)
+        if (!resultOld) {
+          context.log.error("old result was empty")
+          return;
+        }
+        const contentOld = Buffer.from(resultOld.data.content, 'base64').toString();
+
+        //get current
+        var resultOld = octokit.rest.repos.getContent({ owner: org, repo: repo, path: file.filename, ref: payload.pull_request.ref });
+        context.log.debug("newFileResult: " + resultOld)
+        if (!resultOld) {
+          context.log.error("new result was empty")
+          return;
+        }
+        const contentNew = Buffer.from(resultOld.data.content, 'base64').toString();
+
+
+
+
+
       });
     }
 
