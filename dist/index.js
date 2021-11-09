@@ -8468,7 +8468,7 @@ const wait = __nccwpck_require__(4258);
 async function run() {
   try {
 
-  console.log("hi there");
+    console.log("hi there");
 
     const myToken = core.getInput('myToken');
 
@@ -8476,8 +8476,19 @@ async function run() {
 
     const context = github.context;
 
-     console.log(context)
+    //console.log(context)
 
+    if (context.eventName == "pull_request") {
+
+     console.log(context.owner)
+
+      const thisPR = await octokit.rest.pulls.listFiles({
+        owner: context.owner.name,
+        repo: context.repository,
+        pull_number: context.number
+      });
+
+    }
 
   } catch (error) {
     core.setFailed(error.message);
