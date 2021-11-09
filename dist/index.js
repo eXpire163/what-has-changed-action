@@ -8492,7 +8492,6 @@ async function run() {
         pull_number: payload.number
       });
       console.log("pr files", thisPR)
-
     }
 
   } catch (error) {
