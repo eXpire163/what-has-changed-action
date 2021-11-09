@@ -15,7 +15,7 @@ async function run() {
 
     const context = github.context.payload;
 
-    //console.log(context)
+    console.log(context)
 
     if (context.eventName == "pull_request") {
 
