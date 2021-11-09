@@ -22,12 +22,12 @@ async function run() {
     if (context.eventName == "pull_request") {
 
       console.log("this is a pr", payload.repository.owner.login,
-        payload.repository,
+        payload.repository.name,
          payload.number)
 
       const thisPR = await octokit.rest.pulls.listFiles({
         owner: payload.repository.owner.login,
-        repo: payload.repository,
+        repo: payload.repository.name,
         pull_number: payload.number
       });
       console.log("pr files", thisPR)
@@ -35,6 +35,7 @@ async function run() {
     }
 
   } catch (error) {
+    console.log("pipeline failed", error)
     core.setFailed(error.message);
   }
 }
