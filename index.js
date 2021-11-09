@@ -33,6 +33,10 @@ async function run() {
 
       const files = thisPR.data
       files.forEach(file => {
+
+        if(file.status != "modified") return;
+        if(!file.filename.endsWith(".yaml") || !file.filename.endsWith(".yml")) return;
+
         console.log("file", file )
       });
     }
