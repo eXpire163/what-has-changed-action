@@ -51,7 +51,7 @@ async function run() {
         var resultOld = octokit.rest.repos.getContent({ owner: org, repo: repo, path: file.filename });
         //context.log.debug("oldFileResult: " + resultOld)
         if (!resultOld) {
-          console.log.error("old result was empty")
+          console.log("old result was empty")
           return;
         }
         const contentOld = Buffer.from(resultOld.data.content, 'base64').toString();
@@ -60,7 +60,7 @@ async function run() {
         var resultOld = octokit.rest.repos.getContent({ owner: org, repo: repo, path: file.filename, ref: payload.pull_request.ref });
         //.log.debug("newFileResult: " + resultOld)
         if (!resultOld) {
-          context.log.error("new result was empty")
+          console.log("new result was empty")
           return;
         }
         const contentNew = Buffer.from(resultOld.data.content, 'base64').toString();
