@@ -13,19 +13,24 @@ async function run() {
 
     const octokit = github.getOctokit(myToken)
 
-    const context = github.context.payload;
+    const context = github.context;
 
-    console.log(context)
+    const payload = context.payload
+
+    //console.log(context)
 
     if (context.eventName == "pull_request") {
 
-      console.log(context.repository.owner)
+      console.log("this is a pr", payload.repository.owner.login,
+        payload.repository,
+         payload.number)
 
       const thisPR = await octokit.rest.pulls.listFiles({
-        owner: context.repository.owner.name,
-        repo: context.repository,
-        pull_number: context.number
+        owner: payload.repository.owner.login,
+        repo: payload.repository,
+        pull_number: payload.number
       });
+      console.log("pr files", thisPR)
 
     }
 
