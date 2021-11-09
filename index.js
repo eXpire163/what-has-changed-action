@@ -7,7 +7,7 @@ const wait = require('./wait');
 async function run() {
   try {
 
-  console.log("hi there");
+    console.log("hi there");
 
     const myToken = core.getInput('myToken');
 
@@ -15,10 +15,27 @@ async function run() {
 
     const context = github.context;
 
-     console.log(context)
+    const payload = context.payload
 
+    //console.log(context)
+
+    if (context.eventName == "pull_request") {
+
+      console.log("this is a pr", payload.repository.owner.login,
+        payload.repository.name,
+         payload.number)
+
+      const thisPR = await octokit.rest.pulls.listFiles({
+        owner: payload.repository.owner.login,
+        repo: payload.repository.name,
+        pull_number: payload.number
+      });
+      console.log("pr files", thisPR)
+
+    }
 
   } catch (error) {
+    console.log("pipeline failed", error)
     core.setFailed(error.message);
   }
 }

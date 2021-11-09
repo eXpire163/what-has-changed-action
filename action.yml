@@ -10,7 +10,7 @@ inputs:
     description: 'your github token'
 outputs:
   time: # output will be available to future steps
-    description: 'The current time after waiting'
+    description: 'uselss output'
 runs:
   using: 'node12'
   main: 'dist/index.js'
