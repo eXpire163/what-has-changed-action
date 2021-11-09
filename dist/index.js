@@ -8482,14 +8482,18 @@ async function run() {
 
     if (context.eventName == "pull_request") {
 
+      org = payload.repository.owner.login
+      repo = payload.repository.name
+      pull_number = payload.number
+
       console.log("this is a pr", payload.repository.owner.login,
         payload.repository.name,
         payload.number)
 
       const thisPR = await octokit.rest.pulls.listFiles({
-        owner: payload.repository.owner.login,
-        repo: payload.repository.name,
-        pull_number: payload.number
+        owner: org,
+        repo: repo,
+        pull_number: pull_number
       });
 
       const files = thisPR.data
