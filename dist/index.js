@@ -8510,7 +8510,7 @@ async function run() {
 
         //get master
         var resultOld = octokit.rest.repos.getContent({ owner: org, repo: repo, path: file.filename });
-        context.log.debug("oldFileResult: " + resultOld)
+        //context.log.debug("oldFileResult: " + resultOld)
         if (!resultOld) {
           context.log.error("old result was empty")
           return;
@@ -8519,7 +8519,7 @@ async function run() {
 
         //get current
         var resultOld = octokit.rest.repos.getContent({ owner: org, repo: repo, path: file.filename, ref: payload.pull_request.ref });
-        context.log.debug("newFileResult: " + resultOld)
+        //.log.debug("newFileResult: " + resultOld)
         if (!resultOld) {
           context.log.error("new result was empty")
           return;
