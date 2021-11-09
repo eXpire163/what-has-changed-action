@@ -38,11 +38,11 @@ async function run() {
       const files = thisPR.data
       for (const file of files){
         console.log("found file", file.filename)
-        if (file.status != "modified") return
+        if (file.status != "modified") continue
         console.log("is modified", file.status)
         if (file.filename.endsWith(".yaml") || file.filename.endsWith(".yml"))
           console.log("file is a yml/yaml")
-        else return
+        else continue
 
         //console.log("file", file)
 
@@ -52,7 +52,7 @@ async function run() {
         console.log("oldFileResult: " + resultOld)
         if (!resultOld) {
           console.log("old result was empty")
-          return;
+          continue;
         }
         const contentOld = Buffer.from(resultOld.data.content, 'base64').toString();
 
@@ -61,7 +61,7 @@ async function run() {
         console.log("newFileResult: " + resultOld)
         if (!resultOld) {
           console.log("new result was empty")
-          return;
+          continue;
         }
         const contentNew = Buffer.from(resultOld.data.content, 'base64').toString();
 
