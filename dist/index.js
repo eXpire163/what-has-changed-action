@@ -8526,7 +8526,8 @@ async function run() {
         }
         const contentNew = Buffer.from(resultOld.data.content, 'base64').toString();
 
-
+        console.log("old", contentOld)
+        console.log("new", contentNew)
 
 
 
