@@ -7,6 +7,8 @@ const wait = require('./wait');
 async function run() {
   try {
 
+  console.log("hi there");
+
     const myToken = core.getInput('myToken');
 
     const octokit = github.getOctokit(myToken)
