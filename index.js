@@ -62,7 +62,7 @@ async function run() {
         //console.log("file", file)
 
         //check for noCheckFiles
-        if (options["noCheckFiles"].inclues(file.filename)) {
+        if (options["noCheckFiles"].includes(file.filename)) {
           summery[filename] = { "result": true, "reason": "part of noCheckFiles" }
           continue
         }
