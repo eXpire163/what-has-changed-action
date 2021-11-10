@@ -8563,8 +8563,8 @@ async function run() {
 
       }
       console.log("########### result ##########");
-      console.log(summery, summery.length)
-      if(summery.length == filesChanged){
+      console.log(summery, summery.size)
+      if (summery.size == filesChanged){
         console.log("All files could be classified")
       }
       else{
