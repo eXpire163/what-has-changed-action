@@ -8464,7 +8464,7 @@ const core = __nccwpck_require__(2186);
 const wait = __nccwpck_require__(4258);
 
 
-options = { "noCheckFiles": ["data/namespace"] }
+options = { "noCheckFiles": ["data/namespace.yml"] }
 
 
 // most @actions toolkit packages have async methods

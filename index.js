@@ -3,7 +3,7 @@ const core = require('@actions/core');
 const wait = require('./wait');
 
 
-options = { "noCheckFiles": ["data/namespace"] }
+options = { "noCheckFiles": ["data/namespace.yml"] }
 
 
 // most @actions toolkit packages have async methods
