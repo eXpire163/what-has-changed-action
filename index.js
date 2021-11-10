@@ -4,7 +4,7 @@ const wait = require('./wait');
 
 
 options = { "noCheckFiles": ["subber/namespace.yml"] }
-var jsonDiffPatch = require('jsondiffpatch').create();
+var jsonDiffPatch = require('jsondiffpatch')
 
 
 // most @actions toolkit packages have async methods

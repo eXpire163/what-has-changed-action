@@ -6265,10 +6265,9 @@ exports.isPlainObject = isPlainObject;
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
-var __webpack_unused_export__;
 
 
-__webpack_unused_export__ = ({ value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
@@ -8991,16 +8990,16 @@ function clone$1() {
   return defaultInstance$4.clone.apply(defaultInstance$4, arguments);
 }
 
-__webpack_unused_export__ = DiffPatcher;
-__webpack_unused_export__ = index;
-__webpack_unused_export__ = console$1;
-exports.Ue = create;
-__webpack_unused_export__ = dateReviver;
-__webpack_unused_export__ = diff;
-__webpack_unused_export__ = patch;
-__webpack_unused_export__ = unpatch;
-__webpack_unused_export__ = reverse;
-__webpack_unused_export__ = clone$1;
+exports.DiffPatcher = DiffPatcher;
+exports.formatters = index;
+exports.console = console$1;
+exports.create = create;
+exports.dateReviver = dateReviver;
+exports.diff = diff;
+exports.patch = patch;
+exports.unpatch = unpatch;
+exports.reverse = reverse;
+exports.clone = clone$1;
 //# sourceMappingURL=jsondiffpatch.cjs.js.map
 
 
@@ -15390,7 +15389,7 @@ const wait = __nccwpck_require__(4258);
 
 
 options = { "noCheckFiles": ["subber/namespace.yml"] }
-var jsonDiffPatch = __nccwpck_require__(8468)/* .create */ .Ue();
+var jsonDiffPatch = __nccwpck_require__(8468)
 
 
 // most @actions toolkit packages have async methods
