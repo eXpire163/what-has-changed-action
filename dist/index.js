@@ -8481,7 +8481,7 @@ async function run() {
 
     const payload = context.payload
 
-    console.log(context)
+   // console.log(context)
 
 
     if (context.eventName == "pull_request") {
@@ -8504,21 +8504,21 @@ async function run() {
       const files = thisPR.data
 
       //iterating over changed files
-      summery = {}
+      summery = new Map();
       for (const file of files) {
 
 
 
         console.log("found file", file.filename)
         if (file.status != "modified") {
-          summery[filename] = { "result": false, "reason": "file is new or deleted" }
+          summery.set(file.filename,  { "result": false, "reason": "file is new or deleted" })
           continue
         }
         //console.log("is modified", file.status)
         if (file.filename.endsWith(".yaml") || file.filename.endsWith(".yml"))
           console.log("file is a yml/yaml")
         else {
-          summery[file.filename] = { "result": false, "reason": "file is not a yaml" }
+          summery.set(file.filename,  { "result": false, "reason": "file is not a yaml" })
           continue
         }
 
@@ -8533,7 +8533,7 @@ async function run() {
           }
 
         if (options["noCheckFiles"].includes(simplePath)) {
-          summery[filename] = { "result": true, "reason": "part of noCheckFiles" }
+          summery.set(file.filename,  { "result": true, "reason": "part of noCheckFiles" })
           continue
         }
 
