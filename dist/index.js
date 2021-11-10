@@ -8569,14 +8569,14 @@ async function run() {
         //check if map contains "false" elements
         falseMap = summery.filter(([k, v]) => v.result == false)
         if(falseMap.size > 0){
-          console.error("cannot allow auto merge")
+          console.log("cannot allow auto merge")
         }
         else{
           console.log("all files seem to be valid and can be merged")
         }
       }
       else{
-        console.error("Some files could not be classified")
+        console.log("Some files could not be classified")
       }
     }
 
