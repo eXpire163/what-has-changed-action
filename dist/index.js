@@ -8481,13 +8481,15 @@ async function run() {
 
     const payload = context.payload
 
-    //console.log(context)
+    console.log(context)
+
 
     if (context.eventName == "pull_request") {
 
       org = payload.repository.owner.login
       repo = payload.repository.name
       pull_number = payload.number
+
 
       console.log("this is a pr", payload.repository.owner.login,
         payload.repository.name,
