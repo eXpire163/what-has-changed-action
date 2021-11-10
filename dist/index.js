@@ -8478,7 +8478,7 @@ async function run() {
 
     const payload = context.payload
 
-    //console.log(context)
+    console.log(context)
 
     if (context.eventName == "pull_request") {
 
