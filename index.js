@@ -3,7 +3,7 @@ const core = require('@actions/core');
 const wait = require('./wait');
 
 
-options = { "noCheckFiles": ["data/namespace.yml"] }
+options = { "noCheckFiles": ["subber/namespace.yml"] }
 
 
 // most @actions toolkit packages have async methods
@@ -70,6 +70,7 @@ async function run() {
           for (let i = 0; i < 2; i++) {
             simplePath = simplePath.substring(simplePath.indexOf('/') + 1)
           }
+          console
 
         if (options["noCheckFiles"].includes(simplePath)) {
           summery.set(file.filename,  { "result": true, "reason": "part of noCheckFiles" })
