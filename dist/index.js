@@ -8563,7 +8563,7 @@ async function run() {
 
       }
       console.log("########### result ##########");
-      console.log(summery, summery.size)
+      console.log(summery)
       if (summery.size == filesChanged){
         console.log("All files could be classified")
         //check if map contains "false" elements
@@ -8576,7 +8576,7 @@ async function run() {
         }
       }
       else{
-        console.log("Some files could not be classified")
+        console.log("Some files could not be classified, should be / was", filesChanged, summery.size)
       }
     }
 
