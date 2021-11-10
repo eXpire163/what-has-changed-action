@@ -4,6 +4,7 @@ const wait = require('./wait');
 
 
 options = { "noCheckFiles": ["subber/namespace.yml"] }
+var jsonDiffPatch = require('jsondiffpatch').create();
 
 
 // most @actions toolkit packages have async methods
@@ -96,9 +97,19 @@ async function run() {
         }
         const contentNew = Buffer.from(resultNew.data.content, 'base64').toString();
 
-        console.log("old", contentOld)
-        console.log("new", contentNew)
+        //console.log("old", contentOld)
+        //console.log("new", contentNew)
 
+        //compare old to new
+        // create a configured instance, match objects by name
+        var diffPatcher = jsonDiffPatch.create({
+          objectHash: function (obj) {
+            return obj.name;
+          }
+        });
+
+        var delta = diffPatcher.diff(contentOld, contentNew);
+        console.log(delta)
 
 
       }
