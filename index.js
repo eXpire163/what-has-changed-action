@@ -57,7 +57,7 @@ async function run() {
         if (file.filename.endsWith(".yaml") || file.filename.endsWith(".yml"))
           console.log("file is a yml/yaml")
         else {
-          summery[filename] = { "result": false, "reason": "file is not a yaml" }
+          summery[file.filename] = { "result": false, "reason": "file is not a yaml" }
           continue
         }
 
