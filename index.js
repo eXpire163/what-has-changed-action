@@ -3,6 +3,9 @@ const core = require('@actions/core');
 const wait = require('./wait');
 
 
+options = { "noCheckFiles": ["data/namespace"] }
+
+
 // most @actions toolkit packages have async methods
 async function run() {
   try {
@@ -17,7 +20,7 @@ async function run() {
 
     const payload = context.payload
 
-    console.log(context)
+    //console.log(context)
 
     if (context.eventName == "pull_request") {
 
@@ -36,15 +39,33 @@ async function run() {
       });
 
       const files = thisPR.data
-      for (const file of files){
+
+      //iterating over changed files
+      summery = {}
+      for (const file of files) {
+
+
+
         console.log("found file", file.filename)
-        if (file.status != "modified") continue
+        if (file.status != "modified") {
+          summery[filename] = { "result": false, "reason": "file is new or deleted" }
+          continue
+        }
         console.log("is modified", file.status)
         if (file.filename.endsWith(".yaml") || file.filename.endsWith(".yml"))
           console.log("file is a yml/yaml")
-        else continue
+        else {
+          summery[filename] = { "result": false, "reason": "file is not a yaml" }
+          continue
+        }
 
         //console.log("file", file)
+
+        //check for noCheckFiles
+        if (options["noCheckFiles"].inclues(file.filename)) {
+          summery[filename] = { "result": true, "reason": "part of noCheckFiles" }
+          continue
+        }
 
 
         //get master
