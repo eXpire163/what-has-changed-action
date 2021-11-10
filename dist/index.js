@@ -8489,7 +8489,7 @@ async function run() {
       org = payload.repository.owner.login
       repo = payload.repository.name
       pull_number = payload.number
-
+      filesChanged = payload.pull_request.changed_files
 
       console.log("this is a pr", payload.repository.owner.login,
         payload.repository.name,
@@ -8514,7 +8514,7 @@ async function run() {
           summery[filename] = { "result": false, "reason": "file is new or deleted" }
           continue
         }
-        console.log("is modified", file.status)
+        //console.log("is modified", file.status)
         if (file.filename.endsWith(".yaml") || file.filename.endsWith(".yml"))
           console.log("file is a yml/yaml")
         else {
@@ -8525,7 +8525,14 @@ async function run() {
         //console.log("file", file)
 
         //check for noCheckFiles
-        if (options["noCheckFiles"].includes(file.filename)) {
+          //ignore the first x folders in the path
+          //techdebt - make it smarter
+          simplePath = file.filename
+          for (let i = 0; i < 2; i++) {
+            simplePath = simplePath.substring(simplePath.indexOf('/') + 1)
+          }
+
+        if (options["noCheckFiles"].includes(simplePath)) {
           summery[filename] = { "result": true, "reason": "part of noCheckFiles" }
           continue
         }
@@ -8554,6 +8561,14 @@ async function run() {
 
 
 
+      }
+      console.log("########### result ##########");
+      console.log(summery, summery.length)
+      if(summery.length == filesChanged){
+        console.log("All files could be classified")
+      }
+      else{
+        console.error("Some files could not be classified")
       }
     }
 
