@@ -22020,7 +22020,7 @@ const wait = __nccwpck_require__(4258);
 const YAML = __nccwpck_require__(3552)
 
 
-options = { noCheckFiles: ["subber/namespace.yml"], noCheckPath:{"dummy.yaml": ["my/annoying/*"] }}
+options = { noCheckFiles: ["subber/namespace.yml"], noCheckPath: { "dummy.yaml": ["my/annoying/*"] } }
 var jsonDiffPatch = __nccwpck_require__(8468)
 
 
@@ -22066,15 +22066,18 @@ async function getContent(contentRequest) {
 
 }
 
-function validateDiff(delta, filename){
+function validateDiff(delta, filename) {
   //is there a whitelist entry
-  if (options["noCheckPath"].hasOwnProperty(filename)){
-    paths = options["noCheckPath"][filename]
-    console.log("working with nocheckpath", paths);
-    console.log("current diff is", delta)
-
+  if (options.noCheckPath.hasOwnProperty(filename)) {
+    return { result: false, msg: "no noCheckPath found for this file" }
   }
-  return {result:false, msg: "nothing fit"}
+
+
+  paths = options.noCheckPath[filename]
+  console.log("working with noCheckPath", paths);
+  console.log("current diff is", delta)
+
+  return { result: false, msg: "nothing fit" }
 }
 
 
@@ -22157,7 +22160,7 @@ async function run() {
         jsonNew = getContent(contentRequest)
 
         //check if both have valid content
-        if(jsonOld == null || jsonNew == null){
+        if (jsonOld == null || jsonNew == null) {
           summery.set(filename, { "result": false, "reason": "could not read file content" })
         }
 
