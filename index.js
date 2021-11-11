@@ -38,12 +38,12 @@ var diffPatcher = jsonDiffPatch.create({
       */
 });
 
-function getContent(contentRequest) {
+async function getContent(contentRequest) {
   var resultOld = await octokit.rest.repos.getContent(contentRequest);
   console.log("oldFileResult: " + resultOld)
   if (!resultOld) {
     console.log("old result was empty")
-    continue;
+    return null
   }
   const contentOld = Buffer.from(resultOld.data.content, 'base64').toString();
   return YAML.parse(contentOld)
@@ -127,6 +127,10 @@ async function run() {
         contentRequest = { owner: org, repo: repo, path: file.filename, ref: payload.pull_request.head.ref }
         jsonNew = getContent(contentRequest)
 
+        //check if both have valid content
+        if(jsonOld == null || jsonNew == null){
+          summery.set(file.filename, { "result": false, "reason": "could not read file content" })
+        }
 
         // run the compare
         var delta = diffPatcher.diff(jsonOld, jsonNew);
