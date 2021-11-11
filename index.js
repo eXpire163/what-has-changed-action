@@ -133,8 +133,11 @@ async function run() {
       */
         });
 
-        jsonOld = JSON.parse(JSON.stringify(YAML.parse(contentOld)))
-        jsonNew = JSON.parse(JSON.stringify(YAML.parse(contentNew)))
+//        jsonOld = JSON.parse(JSON.stringify(YAML.parse(contentOld)))
+//        jsonNew = JSON.parse(JSON.stringify(YAML.parse(contentNew)))
+        jsonOld = YAML.parse(contentOld)
+        jsonNew = YAML.parse(contentNew)
+
         console.log(jsonOld, jsonNew)
         var delta = diffPatcher.diff(jsonOld, jsonNew);
         console.log(delta)
