@@ -22135,11 +22135,11 @@ async function run() {
 
         //get master
         contentRequest = { owner: org, repo: repo, path: filename }
-        jsonOld = getContent(contentRequest, octokit)
+        jsonOld = await getContent(contentRequest, octokit)
 
         //get current
         contentRequest = { owner: org, repo: repo, path: filename, ref: payload.pull_request.head.ref }
-        jsonNew = getContent(contentRequest, octokit)
+        jsonNew = await getContent(contentRequest, octokit)
 
         //check if both have valid content
         if (jsonOld == null || jsonNew == null) {
