@@ -22096,7 +22096,7 @@ async function run() {
       const files = thisPR.data
 
       //iterating over changed files
-      summery = new Map();
+      summery : Map = new Map();
       for (const file of files) {
 
         filename = file.filename
