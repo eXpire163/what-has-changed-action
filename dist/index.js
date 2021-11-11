@@ -22049,7 +22049,7 @@ async function getContent(contentRequest) {
 
 function validateDiff(delta, filename) {
   //is there a whitelist entry
-  if (options.noCheckPath.has(filename)) {
+  if (options.noCheckPath["filename"] == undefined) {
     return { result: false, msg: "no noCheckPath found for this file "+ filename }
   }
 
