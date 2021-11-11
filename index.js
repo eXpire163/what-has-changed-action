@@ -44,6 +44,7 @@ async function getContent(contentRequest, octokit) {
     return null
   }
   const contentOld = Buffer.from(resultOld.data.content, 'base64').toString();
+  console.log(contentRequest, contentOld)
   return YAML.parse(contentOld)
 
 }
