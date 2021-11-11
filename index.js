@@ -1,6 +1,7 @@
 const github = require('@actions/github');
 const core = require('@actions/core');
 const wait = require('./wait');
+const YAML = require('yaml')
 
 
 options = { "noCheckFiles": ["subber/namespace.yml"] }
@@ -132,8 +133,8 @@ async function run() {
       */
         });
 
-        jsonOld = JSON.parse(JSON.stringify(contentOld))
-        jsonNew = JSON.parse(JSON.stringify(contentNew))
+        jsonOld = JSON.parse(JSON.stringify(YAML.parse(contentOld)))
+        jsonNew = JSON.parse(JSON.stringify(YAML.parse(contentNew)))
         console.log(jsonOld, jsonNew)
         var delta = diffPatcher.diff(jsonOld, jsonNew);
         console.log(delta)

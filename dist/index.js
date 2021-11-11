@@ -15210,6 +15210,14 @@ module.exports = eval("require")("encoding");
 
 /***/ }),
 
+/***/ 8285:
+/***/ ((module) => {
+
+module.exports = eval("require")("yaml");
+
+
+/***/ }),
+
 /***/ 8661:
 /***/ ((module) => {
 
@@ -15386,6 +15394,7 @@ var __webpack_exports__ = {};
 const github = __nccwpck_require__(5438);
 const core = __nccwpck_require__(2186);
 const wait = __nccwpck_require__(4258);
+const YAML = __nccwpck_require__(8285)
 
 
 options = { "noCheckFiles": ["subber/namespace.yml"] }
@@ -15517,8 +15526,8 @@ async function run() {
       */
         });
 
-        jsonOld = JSON.parse(JSON.stringify(contentOld))
-        jsonNew = JSON.parse(JSON.stringify(contentNew))
+        jsonOld = JSON.parse(JSON.stringify(YAML.parse(contentOld)))
+        jsonNew = JSON.parse(JSON.stringify(YAML.parse(contentNew)))
         console.log(jsonOld, jsonNew)
         var delta = diffPatcher.diff(jsonOld, jsonNew);
         console.log(delta)
