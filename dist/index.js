@@ -22035,7 +22035,7 @@ var diffPatcher = jsonDiffPatch.create({
       */
 });
 
-async function getContent(contentRequest) {
+async function getContent(contentRequest, octokit) {
   var resultOld = await octokit.rest.repos.getContent(contentRequest);
   console.log("oldFileResult: " + resultOld)
   if (!resultOld) {
@@ -22134,11 +22134,11 @@ async function run() {
 
         //get master
         contentRequest = { owner: org, repo: repo, path: filename }
-        jsonOld = getContent(contentRequest)
+        jsonOld = getContent(contentRequest, octokit)
 
         //get current
         contentRequest = { owner: org, repo: repo, path: filename, ref: payload.pull_request.head.ref }
-        jsonNew = getContent(contentRequest)
+        jsonNew = getContent(contentRequest, octokit)
 
         //check if both have valid content
         if (jsonOld == null || jsonNew == null) {
@@ -22152,7 +22152,7 @@ async function run() {
 
 
         result = validateDiff(delta, simplePath)
-        summery.set(filename, { "result": result, "reason": "validation of diff" })
+        summery.set(filename, { "result": result.result, "reason": result.msg })
 
       }
       console.log("########### result ##########");
