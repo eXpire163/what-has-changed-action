@@ -22020,7 +22020,7 @@ const wait = __nccwpck_require__(4258);
 const YAML = __nccwpck_require__(3552)
 
 
-options = { "noCheckFiles": ["subber/namespace.yml"] }
+options = { "noCheckFiles": ["subber/namespace.yml"], "noCheckPath":{"dummy.yaml": ["my/annoying/*"] }}
 var jsonDiffPatch = __nccwpck_require__(8468)
 
 
@@ -22066,6 +22066,16 @@ async function getContent(contentRequest) {
 
 }
 
+function validateDiff(delta, filename){
+  //is there a whitelist entry
+  if (options["noCheckPath"].hasOwnProperty(filename))
+
+
+
+
+  return false
+}
+
 
 // most @actions toolkit packages have async methods
 async function run() {
@@ -22104,17 +22114,19 @@ async function run() {
       summery = new Map();
       for (const file of files) {
 
+        filename = file.filename
+
         // create or delete can not be merged automatically
         if (file.status != "modified") {
-          summery.set(file.filename, { "result": false, "reason": "file is new or deleted" })
+          summery.set(filename, { "result": false, "reason": "file is new or deleted" })
           continue
         }
 
         //only allowing yaml/yml files
-        if (file.filename.endsWith(".yaml") || file.filename.endsWith(".yml"))
+        if (filename.endsWith(".yaml") || filename.endsWith(".yml"))
           console.log("file is a yml/yaml")
         else {
-          summery.set(file.filename, { "result": false, "reason": "file is not a yaml" })
+          summery.set(filename, { "result": false, "reason": "file is not a yaml" })
           continue
         }
 
@@ -22122,13 +22134,13 @@ async function run() {
 
         //ignore the first x folders in the path - like project name that could change
         //techdebt - make it smarter
-        simplePath = file.filename
+        simplePath = filename
         for (let i = 0; i < 2; i++) {
           simplePath = simplePath.substring(simplePath.indexOf('/') + 1)
         }
 
         if (options["noCheckFiles"].includes(simplePath)) {
-          summery.set(file.filename, { "result": true, "reason": "part of noCheckFiles" })
+          summery.set(filename, { "result": true, "reason": "part of noCheckFiles" })
           continue
         }
 
@@ -22136,16 +22148,16 @@ async function run() {
         // compare content of yaml files
 
         //get master
-        contentRequest = { owner: org, repo: repo, path: file.filename }
+        contentRequest = { owner: org, repo: repo, path: filename }
         jsonOld = getContent(contentRequest)
 
         //get current
-        contentRequest = { owner: org, repo: repo, path: file.filename, ref: payload.pull_request.head.ref }
+        contentRequest = { owner: org, repo: repo, path: filename, ref: payload.pull_request.head.ref }
         jsonNew = getContent(contentRequest)
 
         //check if both have valid content
         if(jsonOld == null || jsonNew == null){
-          summery.set(file.filename, { "result": false, "reason": "could not read file content" })
+          summery.set(filename, { "result": false, "reason": "could not read file content" })
         }
 
         // run the compare
@@ -22153,7 +22165,9 @@ async function run() {
         console.log(delta)
         //console.log(jsonDiffPatch.formatters.console.format(delta))
 
-        // todo - evaluate result
+
+        result = validateDiff(delta, simplePath)
+        summery.set(filename, { "result": result, "reason": "validation of diff" })
 
       }
       console.log("########### result ##########");
