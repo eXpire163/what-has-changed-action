@@ -4,7 +4,7 @@ const wait = require('./wait');
 const YAML = require('yaml')
 
 
-options = { "noCheckFiles": ["subber/namespace.yml"], "noCheckPath":{"dummy.yaml": ["my/annoying/*"] }}
+options = { noCheckFiles: ["subber/namespace.yml"], noCheckPath:{"dummy.yaml": ["my/annoying/*"] }}
 var jsonDiffPatch = require('jsondiffpatch')
 
 
@@ -52,12 +52,12 @@ async function getContent(contentRequest) {
 
 function validateDiff(delta, filename){
   //is there a whitelist entry
-  if (options["noCheckPath"].hasOwnProperty(filename))
+  if (options["noCheckPath"].hasOwnProperty(filename)){
+    paths = options["noCheckPath"][filename]
+    console.log("working with nocheckpath", paths);
 
-
-
-
-  return false
+  }
+  return {result:false, msg: "nothing fit"}
 }
 
 
@@ -123,7 +123,7 @@ async function run() {
           simplePath = simplePath.substring(simplePath.indexOf('/') + 1)
         }
 
-        if (options["noCheckFiles"].includes(simplePath)) {
+        if (options.noCheckFiles.includes(simplePath)) {
           summery.set(filename, { "result": true, "reason": "part of noCheckFiles" })
           continue
         }
