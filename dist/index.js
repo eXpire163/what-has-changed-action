@@ -21816,23 +21816,6 @@ module.exports = __nccwpck_require__(5065).YAML
 
 /***/ }),
 
-/***/ 4258:
-/***/ ((module) => {
-
-let wait = function (milliseconds) {
-  return new Promise((resolve) => {
-    if (typeof milliseconds !== 'number') {
-      throw new Error('milliseconds not a number');
-    }
-    setTimeout(() => resolve("done!"), milliseconds)
-  });
-};
-
-module.exports = wait;
-
-
-/***/ }),
-
 /***/ 2877:
 /***/ ((module) => {
 
@@ -22016,14 +21999,12 @@ var __webpack_exports__ = {};
 (() => {
 const github = __nccwpck_require__(5438);
 const core = __nccwpck_require__(2186);
-const wait = __nccwpck_require__(4258);
 const YAML = __nccwpck_require__(3552)
 
 
 options = { noCheckFiles: ["subber/namespace.yml"], noCheckPath: { "dummy.yaml": ["my/annoying/*"] } }
+
 var jsonDiffPatch = __nccwpck_require__(8468)
-
-
 var diffPatcher = jsonDiffPatch.create({
   // used to match objects when diffing arrays, by default only === operator is used
   objectHash: function (obj) {
@@ -22069,7 +22050,7 @@ async function getContent(contentRequest) {
 function validateDiff(delta, filename) {
   //is there a whitelist entry
   if (options.noCheckPath.hasOwnProperty(filename)) {
-    return { result: false, msg: "no noCheckPath found for this file" }
+    return { result: false, msg: "no noCheckPath found for this file "+ filename }
   }
 
 

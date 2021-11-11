@@ -1,13 +1,11 @@
 const github = require('@actions/github');
 const core = require('@actions/core');
-const wait = require('./wait');
 const YAML = require('yaml')
 
 
 options = { noCheckFiles: ["subber/namespace.yml"], noCheckPath: { "dummy.yaml": ["my/annoying/*"] } }
+
 var jsonDiffPatch = require('jsondiffpatch')
-
-
 var diffPatcher = jsonDiffPatch.create({
   // used to match objects when diffing arrays, by default only === operator is used
   objectHash: function (obj) {
@@ -53,7 +51,7 @@ async function getContent(contentRequest) {
 function validateDiff(delta, filename) {
   //is there a whitelist entry
   if (options.noCheckPath.hasOwnProperty(filename)) {
-    return { result: false, msg: "no noCheckPath found for this file" }
+    return { result: false, msg: "no noCheckPath found for this file "+ filename }
   }
 
 
