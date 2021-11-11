@@ -27,7 +27,8 @@
   "dependencies": {
     "@actions/core": "^1.2.5",
     "@actions/github": "^5.0.0",
-    "jsondiffpatch": "^0.4.1"
+    "jsondiffpatch": "^0.4.1",
+    "yaml": "^1.10.2"
   },
   "devDependencies": {
     "@vercel/ncc": "^0.31.1",
