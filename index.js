@@ -110,7 +110,7 @@ async function run() {
 
         var delta = diffPatcher.diff(contentOld, contentNew);
         console.log(delta)
-        console.log(diffPatcher.formatters.html.format(delta))
+        console.log(jsonDiffPatch.formatters.html.format(delta))
 
 
       }
