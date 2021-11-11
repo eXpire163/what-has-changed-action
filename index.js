@@ -50,7 +50,7 @@ async function getContent(contentRequest) {
 
 function validateDiff(delta, filename) {
   //is there a whitelist entry
-  if (options.noCheckPath.hasOwnProperty(filename)) {
+  if (options.noCheckPath.has(filename)) {
     return { result: false, msg: "no noCheckPath found for this file "+ filename }
   }
 
