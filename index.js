@@ -97,7 +97,7 @@ async function run() {
       const files = thisPR.data
 
       //iterating over changed files
-      summery : Map = new Map();
+      summery = new Map();
       for (const file of files) {
 
         filename = file.filename
@@ -161,7 +161,7 @@ async function run() {
       if (summery.size == filesChanged) {
         console.log("All files could be classified")
         //check if map contains "false" elements
-        falseMap = summery.filter(([k, v]) => v.result == false)
+        falseMap = new Map([...summery].filter(([k, v]) => v.result == false))
         if (falseMap.size > 0) {
           console.log("cannot allow auto merge")
         }
