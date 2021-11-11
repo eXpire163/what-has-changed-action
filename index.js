@@ -134,6 +134,7 @@ async function run() {
 
         jsonOld = JSON.parse(JSON.stringify(contentOld))
         jsonNew = JSON.parse(JSON.stringify(contentNew))
+        console.log(jsonOld, jsonNew)
         var delta = diffPatcher.diff(jsonOld, jsonNew);
         console.log(delta)
         console.log(jsonDiffPatch.formatters.console.format(delta))
