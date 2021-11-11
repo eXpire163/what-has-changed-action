@@ -22071,6 +22071,7 @@ function validateDiff(delta, filename){
   if (options["noCheckPath"].hasOwnProperty(filename)){
     paths = options["noCheckPath"][filename]
     console.log("working with nocheckpath", paths);
+    console.log("current diff is", delta)
 
   }
   return {result:false, msg: "nothing fit"}
