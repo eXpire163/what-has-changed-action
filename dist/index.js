@@ -22075,9 +22075,9 @@ function printSummery() {
 
   console.log("########### result ##########");
 
-  summery.forEach((key, value) => {
+  for ([key, value] of summery){
     console.log(`File ${key} was ${value.reason} ${value.result ? "✔" : "✖"}`)
-  });
+  };
 }
 
 
