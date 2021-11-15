@@ -148,10 +148,9 @@ async function run() {
       //ignore the first x folders in the path - like project name that could change
       //techdebt - make it smarter
       dynamicPath = filename
-      for (let i = 0; i < dynamicFilesCount; i++) {
+      for (let i = 0; i < options.dynamicFilesCount; i++) {
         dynamicPath = dynamicPath.substring(dynamicPath.indexOf('/') + 1)
       }
-
 
       if (options.noCheckFilesRoot.includes(filename)) {
         setResult(filename, true, "part of noCheckFilesRoot")
