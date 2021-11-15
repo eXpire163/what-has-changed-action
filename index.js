@@ -65,7 +65,7 @@ function validateDiff(delta, filename) {
 
 function setResult(filename, result, reason) {
   summery.set(filename, { result: result, reason: reason })
-  console.log(`File ${filename} was ${reason} ${result ? ":check:" : ":fail:"}`)
+  console.log(`File ${filename} was ${reason} ${result ? ":heavy_check_mark:" : ":x:"}`)
 }
 
 
@@ -73,7 +73,7 @@ function setResult(filename, result, reason) {
 async function run() {
   try {
 
-    console.log("hi there");
+    console.log("hi there :v:");
 
     //getting base information
     const myToken = core.getInput('myToken');
@@ -91,7 +91,7 @@ async function run() {
       pull_number = payload.number
       filesChanged = payload.pull_request.changed_files
 
-      console.log("this is a pr", repository.owner.login,
+      console.log(":bug: this is a pr", repository.owner.login,
         repository.name,
         payload.number)
       //load pr files
@@ -116,7 +116,7 @@ async function run() {
 
         //only allowing yaml/yml files
         if (filename.endsWith(".yaml") || filename.endsWith(".yml"))
-          console.log("file is a yml/yaml")
+          console.log(":bug: file is a yml/yaml")
         else {
           setResult(filename, false, "file is not a yaml")
           continue
@@ -154,7 +154,7 @@ async function run() {
 
         // run the compare
         var delta = diffPatcher.diff(jsonOld, jsonNew);
-        console.log(delta)
+        console.log(":bug: delta", delta)
         //console.log(jsonDiffPatch.formatters.console.format(delta))
 
 
@@ -164,18 +164,20 @@ async function run() {
       }
       console.log("########### result ##########");
       console.log(summery)
-      if (summery.size == filesChanged) {
-        console.log("All files could be classified")
-        //check if map contains "false" elements
-        falseMap = new Map([...summery].filter(([k, v]) => v.result == false))
-        if (falseMap.size > 0) {
-          console.log("cannot allow auto merge")
-        }
-        else {
-          console.log("all files seem to be valid and can be merged")
-        }
+      if (summery.size != filesChanged) {
+        throw ("Some files could not be classified, should be / was", filesChanged, summery.size)
       }
-      throw("Some files could not be classified, should be / was", filesChanged, summery.size)
+
+      console.log("All files could be classified ::heavy_check_mark::")
+      //check if map contains "false" elements
+      falseMap = new Map([...summery].filter(([k, v]) => v.result == false))
+      if (falseMap.size > 0) {
+        console.log("cannot allow auto merge")
+      }
+      else {
+        console.log("all files seem to be valid and can be merged")
+      }
+
     }
 
   } catch (error) {

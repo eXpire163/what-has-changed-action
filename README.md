@@ -5,6 +5,8 @@ action toolkit https://github.com/actions/toolkit/tree/master/packages/github
 actions https://github.com/actions/toolkit/tree/master
 json diff https://github.com/benjamine/jsondiffpatch
 
+"build and push" 'npm run prepare && git cam "update" && git pu'
+
 
 
 
