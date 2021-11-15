@@ -8,7 +8,14 @@ json diff https://github.com/benjamine/jsondiffpatch
 "build and push" 'npm run prepare && git cam "update" && git pu'
 
 
+### cheat on icons
 
+MAIN_SYMBOLS = {
+    : info => 'ℹ',
+    : success => '✔',
+    : warning => '⚠',
+    : error => '✖'
+}
 
 
 # Create a JavaScript Action

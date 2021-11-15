@@ -22056,8 +22056,8 @@ function validateDiff(delta, filename) {
 
 
   paths = options.noCheckPath[filename]
-  console.log("working with noCheckPath", paths);
-  console.log("current diff is", delta)
+  console.log(":bug: working with noCheckPath", paths);
+  console.log(":bug: current diff is", delta)
 
   return { result: false, msg: "nothing fit" }
 }
