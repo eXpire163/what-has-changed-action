@@ -22146,13 +22146,18 @@ async function run() {
 
       //ignore the first x folders in the path - like project name that could change
       //techdebt - make it smarter
-      simplePath = filename
+      dynamicPath = filename
       for (let i = 0; i < dynamicFilesCount; i++) {
-        simplePath = simplePath.substring(simplePath.indexOf('/') + 1)
+        dynamicPath = dynamicPath.substring(dynamicPath.indexOf('/') + 1)
       }
 
-      if (options.noCheckFiles.includes(simplePath)) {
-        setResult(filename, true, "part of noCheckFiles")
+
+      if (options.noCheckFilesRoot.includes(filename)) {
+        setResult(filename, true, "part of noCheckFilesRoot")
+        continue
+      }
+      if (options.noCheckFilesDynamic.includes(dynamicPath)) {
+        setResult(filename, true, "part of noCheckFilesDynamic")
         continue
       }
 
@@ -22178,7 +22183,7 @@ async function run() {
       //console.log(jsonDiffPatch.formatters.console.format(delta))
 
 
-      result = validateDiff(delta, simplePath)
+      result = validateDiff(delta, dynamicPath)
       setResult(filename, result.result, result.msg)
 
     }
