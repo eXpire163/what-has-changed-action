@@ -4,6 +4,7 @@ const YAML = require('yaml')
 
 
 options = { noCheckFiles: ["subber/namespace.yml"], noCheckPath: { "dummy.yaml": ["my/annoying/*"] } }
+summery = new Map();
 
 var jsonDiffPatch = require('jsondiffpatch')
 var diffPatcher = jsonDiffPatch.create({
@@ -118,7 +119,7 @@ async function run() {
     const files = thisPR.data
 
     //iterating over changed files
-    summery = new Map();
+
     for (const file of files) {
 
       filename = file.filename

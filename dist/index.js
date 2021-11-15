@@ -22003,6 +22003,7 @@ const YAML = __nccwpck_require__(3552)
 
 
 options = { noCheckFiles: ["subber/namespace.yml"], noCheckPath: { "dummy.yaml": ["my/annoying/*"] } }
+summery = new Map();
 
 var jsonDiffPatch = __nccwpck_require__(8468)
 var diffPatcher = jsonDiffPatch.create({
@@ -22117,7 +22118,7 @@ async function run() {
     const files = thisPR.data
 
     //iterating over changed files
-    summery = new Map();
+
     for (const file of files) {
 
       filename = file.filename
