@@ -22174,9 +22174,7 @@ async function run() {
           console.log("all files seem to be valid and can be merged")
         }
       }
-      else {
-        console.log("Some files could not be classified, should be / was", filesChanged, summery.size)
-      }
+      throw("Some files could not be classified, should be / was", filesChanged, summery.size)
     }
 
   } catch (error) {
