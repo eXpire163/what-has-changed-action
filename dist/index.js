@@ -22002,7 +22002,12 @@ const core = __nccwpck_require__(2186);
 const YAML = __nccwpck_require__(3552)
 
 
-options = { noCheckFiles: ["subber/namespace.yml"], noCheckPath: { "dummy.yaml": ["my/annoying/*"] } }
+options = {
+  noCheckFilesRoot: ["index.js"], //files relative to root
+  dynamicFilesCount: 2, //ignored folders starting from root
+  noCheckFilesDynamic: ["subber/namespace.yml"], //filename relative after ignored folders
+  noCheckPath: { "dummy.yaml": ["my/annoying/*"] }, //xpath (todo) in dynamic folders
+}
 summery = new Map();
 
 var jsonDiffPatch = __nccwpck_require__(8468)
@@ -22075,7 +22080,7 @@ function printSummery() {
 
   console.log("########### result ##########");
 
-  for ([key, value] of summery){
+  for ([key, value] of summery) {
     console.log(`File ${key} was ${value.reason} ${value.result ? "✔" : "✖"}`)
   };
 }
@@ -22142,7 +22147,7 @@ async function run() {
       //ignore the first x folders in the path - like project name that could change
       //techdebt - make it smarter
       simplePath = filename
-      for (let i = 0; i < 2; i++) {
+      for (let i = 0; i < dynamicFilesCount; i++) {
         simplePath = simplePath.substring(simplePath.indexOf('/') + 1)
       }
 
