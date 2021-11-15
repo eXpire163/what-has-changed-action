@@ -36,6 +36,11 @@ var diffPatcher = jsonDiffPatch.create({
       */
 });
 
+
+
+
+
+
 async function getContent(contentRequest, octokit) {
   var resultOld = await octokit.rest.repos.getContent(contentRequest);
   console.log("oldFileResult: " + resultOld)
@@ -57,15 +62,15 @@ function validateDiff(delta, filename) {
 
 
   paths = options.noCheckPath[filename]
-  console.log(":bug: working with noCheckPath", paths);
-  console.log(":bug: current diff is", delta)
+  console.log("ℹ working with noCheckPath", paths);
+  console.log("ℹ current diff is", delta)
 
   return { result: false, msg: "nothing fit" }
 }
 
 function setResult(filename, result, reason) {
   summery.set(filename, { result: result, reason: reason })
-  console.log(`File ${filename} was ${reason} ${result ? ":heavy_check_mark:" : ":x:"}`)
+  console.log(`File ${filename} was ${reason} ${result ? "✔" : "✖"}`)
 }
 
 
@@ -73,7 +78,7 @@ function setResult(filename, result, reason) {
 async function run() {
   try {
 
-    console.log("hi there :v:");
+    console.log("hi there ⚠");
 
     //getting base information
     const myToken = core.getInput('myToken');
@@ -91,7 +96,7 @@ async function run() {
       pull_number = payload.number
       filesChanged = payload.pull_request.changed_files
 
-      console.log(":bug: this is a pr", repository.owner.login,
+      console.log("ℹ this is a pr", repository.owner.login,
         repository.name,
         payload.number)
       //load pr files
@@ -116,7 +121,7 @@ async function run() {
 
         //only allowing yaml/yml files
         if (filename.endsWith(".yaml") || filename.endsWith(".yml"))
-          console.log(":bug: file is a yml/yaml")
+          console.log("ℹ file is a yml/yaml")
         else {
           setResult(filename, false, "file is not a yaml")
           continue
@@ -154,7 +159,7 @@ async function run() {
 
         // run the compare
         var delta = diffPatcher.diff(jsonOld, jsonNew);
-        console.log(":bug: delta", delta)
+        console.log("ℹ delta", delta)
         //console.log(jsonDiffPatch.formatters.console.format(delta))
 
 
@@ -168,7 +173,7 @@ async function run() {
         throw ("Some files could not be classified, should be / was", filesChanged, summery.size)
       }
 
-      console.log("All files could be classified ::heavy_check_mark::")
+      console.log("All files could be classified ✔")
       //check if map contains "false" elements
       falseMap = new Map([...summery].filter(([k, v]) => v.result == false))
       if (falseMap.size > 0) {

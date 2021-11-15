@@ -16,6 +16,7 @@ MAIN_SYMBOLS = {
     : warning => '⚠',
     : error => '✖'
 }
+from https://github.com/palash25/log-symbols/blob/master/lib/symbols.rb
 
 
 # Create a JavaScript Action
