@@ -1,3 +1,24 @@
+# lookups
+
+
+action toolkit https://github.com/actions/toolkit/tree/master/packages/github
+actions https://github.com/actions/toolkit/tree/master
+json diff https://github.com/benjamine/jsondiffpatch
+
+"build and push" 'npm run prepare && git cam "update" && git pu'
+
+
+### cheat on icons
+
+MAIN_SYMBOLS = {
+    : info => 'ℹ',
+    : success => '✔',
+    : warning => '⚠',
+    : error => '✖'
+}
+from https://github.com/palash25/log-symbols/blob/master/lib/symbols.rb
+
+
 # Create a JavaScript Action
 
 <p align="center">
