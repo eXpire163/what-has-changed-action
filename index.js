@@ -52,7 +52,7 @@ async function getContent(contentRequest, octokit) {
 function validateDiff(delta, filename) {
   //is there a whitelist entry
   if (options.noCheckPath[filename] == undefined) {
-    return { result: false, msg: "no noCheckPath found for this file "+ filename }
+    return { result: false, msg: "no noCheckPath found for this file " + filename }
   }
 
 
@@ -61,6 +61,11 @@ function validateDiff(delta, filename) {
   console.log("current diff is", delta)
 
   return { result: false, msg: "nothing fit" }
+}
+
+function setResult(filename, result, reason) {
+  summery.set(filename, { result: result, reason: reason })
+  console.log(`File ${filename} was ${reason} ${result ? ":check:" : ":fail:"}`)
 }
 
 
@@ -105,7 +110,7 @@ async function run() {
 
         // create or delete can not be merged automatically
         if (file.status != "modified") {
-          summery.set(filename, { "result": false, "reason": "file is new or deleted" })
+          setResult(filename, false, "file is new or deleted")
           continue
         }
 
@@ -113,7 +118,7 @@ async function run() {
         if (filename.endsWith(".yaml") || filename.endsWith(".yml"))
           console.log("file is a yml/yaml")
         else {
-          summery.set(filename, { "result": false, "reason": "file is not a yaml" })
+          setResult(filename, false, "file is not a yaml")
           continue
         }
 
@@ -127,7 +132,7 @@ async function run() {
         }
 
         if (options.noCheckFiles.includes(simplePath)) {
-          summery.set(filename, { "result": true, "reason": "part of noCheckFiles" })
+          setResult(filename, true, "part of noCheckFiles")
           continue
         }
 
@@ -144,7 +149,7 @@ async function run() {
 
         //check if both have valid content
         if (jsonOld == null || jsonNew == null) {
-          summery.set(filename, { "result": false, "reason": "could not read file content" })
+          setResult(filename, false, "could not read file content")
         }
 
         // run the compare
@@ -154,7 +159,7 @@ async function run() {
 
 
         result = validateDiff(delta, simplePath)
-        summery.set(filename, { "result": result.result, "reason": result.msg })
+        setResult(filename, result.result, result.msg)
 
       }
       console.log("########### result ##########");
